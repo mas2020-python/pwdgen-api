@@ -15,6 +15,35 @@ The service should follow these requirements:
 
 Default password length and default flags should be configurable from the server.
 
+## Technical considerations
+
+The application will use the following Python libraries:
+- `pytest`: in order to make the unit test
+- `fastapi`: for the deployment of the Web API service
+- 
+
+
+Locally the libraries will be installed into a virtual environment and each dependencies will be listed
+in a `requirements.txt` file.
+To reproduce locally you have to follow these steps:
+```shell
+python3 -m venv .venv --prompt='swisscom-asses'
+source .venv/bin/activate
+pip3 install -r requirements.txt
+```
+
+The application has been developed using Python 3.11.0, a lower version of Python should be ok as well. The application
+has not be tested in a multiple env (using `tox` for example) for a matter of timing.
+
+### Folder structure
+
+The service has the following folder structure:
+
+- `src`: it is the folder that contains the application code
+- `configs`: it is the folder that contains the configuration files. The config module will expose these values for the entire project.
+
+
+
 
 
 
