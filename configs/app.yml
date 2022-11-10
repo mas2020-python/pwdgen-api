@@ -1,0 +1,11 @@
+app:
+  password_config:
+    default_length: 10
+    default_params:
+      numbers_flag: true
+      lowercase_chars: true
+      uppercase_chars: true
+      special_chars: false
+
+log:
+  verbosity: 0
