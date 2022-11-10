@@ -4,7 +4,6 @@ the application
 """
 import yaml
 
-
 class Config():
     """
     Config class that contains all the config information for the app.
@@ -14,7 +13,7 @@ class Config():
     filename : str, default=configs/app.yml
     """
 
-    def __init__(self, file="configs/app.yml"):
+    def __init__(self, file="../configs/app.yml"):
         """
         Constructor of the class: read and load the YAML file passed or in alternative
         the default one.
