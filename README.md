@@ -15,7 +15,35 @@ The service should follow these requirements:
 
 Default password length and default flags should be configurable from the server.
 
-## Technical considerations
+### Functional Considerations***
+- requirements speak about 'should consider' something during the pwd generation. It means that a bunch of chars of that specific flag have to present at least one time.
+- based on the flags numbers present the application will put into the password the corresponding bunch of chars using this algo: len/numbers of flags determines how many chars of a specific set has to be considered. For example:
+```shell
+numbers_flag = true
+lowercase_chars = true
+pwd length = 10
+10 / 2 = 5
+```
+the application will create a pwd with 5 numbers and 5 lower chars. If a generated pwd is still < to the length the adding chars will be lower cases chars.
+
+#### Edge cases
+
+These are some of the edge cases:
+
+- the characters set length contains less characters that the requested pwd length: the char set is doubled, tripled etc... until the final length is reached. e.g.:
+```shell
+pwd length = 100
+only special chars = true
+the given pwd will 100 special chars
+```
+- length is < 0 or > 200: error is given
+- flags are all false: error is given
+
+
+
+
+
+### Technical considerations
 
 The application will use the following Python libraries:
 - `pytest`: in order to make the unit test

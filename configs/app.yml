@@ -1,11 +1,11 @@
-app:
-  password_config:
-    default_length: 10
-    default_params:
-      numbers_flag: true
-      lowercase_chars: true
-      uppercase_chars: true
-      special_chars: false
+password_config:
+  default_length: -10
+  max_length: 200 # the max length for the password
+  default_params:
+    numbers_flag: true
+    lowercase_flag: false
+    uppercase_flag: false
+    special_flag: false
 
 log:
   verbosity: 0
