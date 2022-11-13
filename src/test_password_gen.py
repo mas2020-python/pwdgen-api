@@ -4,7 +4,9 @@ from password_gen import PwdGenerator
 
 gen = PwdGenerator()
 
-# list of list of tuples: first element are the params passed to the generate func, second element when present is the regexp we expect to match with the password, third element is the expected length of the password
+# list of list of tuples: first element are the params passed to the generate func: length, numbers, lowercase, uppercase, special
+# second element when present is the regexp we expect to match with the password
+# third element is the expected length of the password
 test_cases = [
     [(1, True, False, False, False), '', 1],
     [(2, True, False, False, False), '', 2],
@@ -21,7 +23,11 @@ test_cases = [
     # check specialflags only with regexp
     [(50, False, False, False, True),
      r"^[|!\$#%&'\(\)\*\+,-\./:;<=>\?@\[\]\^_`\{\}~\\]{50}$", 50],
-    [(12, False, True, False, True), r'[^A-Z][^0-9]', 12]
+    [(12, False, True, False, True), r'[^A-Z][^0-9]', 12],
+    [(3, True, True, True, False), r"^[^|!\$#%&'\(\)\*\+,-\./:;<=>\?@\[\]\^_`\{\}~\\]{3}$", 3],
+    [(3, True, True, False, True), r"^[^A-Z]{3}$", 3],
+    [(3, True, False, True, True), r"^[^a-z]{3}$", 3],
+    [(3, False, True, True, True), r"^[^0-9]{3}$", 3],
 ]
 
 test_ex_cases = [

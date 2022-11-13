@@ -66,7 +66,7 @@ class PwdGenerator():
         chars_length = length // elems
         remaining = length
         if chars_length == 0:
-          chars_length = remaining
+          chars_length = 1
 
         # it always generates a pwd with some characters (fdaieoifhawero)
         while remaining > 0:
