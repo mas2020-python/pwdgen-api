@@ -60,11 +60,13 @@ class PwdGenerator():
         print(f"the lenght={length}, numbers_flag={numbers_flag}, lowercase_flag={lowercase_flag}, uppercase_char{uppercase_flag}, special_flag={special_flag}")
         lowercases_chars, numbers, uppercases_chars, special_chars = "", "", "", ""
         # controls the pwd semantically (raise an exception in case of any error)
-        elems, ts = self.__checks(length, numbers_flag, lowercase_flag,
+        elems = self.__checks(length, numbers_flag, lowercase_flag,
                                   uppercase_flag, special_flag)
         # numbers of chars that compose each set of chars
         chars_length = length // elems
         remaining = length
+        if chars_length == 0:
+          chars_length = 1
 
         # it always generates a pwd with some characters (fdaieoifhawero)
         while remaining > 0:
@@ -118,7 +120,7 @@ class PwdGenerator():
                 'all the arguments passed to the API are False, it is not possible to generate a pwd. Set at least one parameter to True.')
         if length <= 0:
             raise Exception('the password length must be greater than 0')
-        return elems, 100
+        return elems
 
     def __generate_flag(self, number: int, chars: list):
         """
