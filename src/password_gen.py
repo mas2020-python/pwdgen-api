@@ -115,7 +115,7 @@ class PwdGenerator():
                 f'the given length ({length}) exceeds the max length of {config.app_config["password_config"]["max_length"]}')
         if elems == 0:
             raise Exception(
-                f'the numbers of flags is 0, it is not possible to generate a pwd')
+                f'all the arguments passed to the API are False, it is not possible to generate a pwd. Set at least one parameter to True.')
         if length < 0:
             raise Exception(
                 f'the password length cannot be a negative number')
