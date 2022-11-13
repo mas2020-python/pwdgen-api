@@ -22,7 +22,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build and push
-        uses: docker/build-push-action@v3 #TODO: understand how to build only and test and then push
+        uses: docker/build-push-action@v3
         with:
           context: .
           file: ./Dockerfile
@@ -31,4 +31,4 @@ jobs:
 
       - name: Unit test
         run: |
-          docker run --rm -it --name pwdgen-api ${{ secrets.DOCKER_HUB_USERNAME }}/pwdgen-api:latest pytest
+          docker run --rm --name pwdgen-api ${{ secrets.DOCKER_HUB_USERNAME }}/pwdgen-api:latest pytest
