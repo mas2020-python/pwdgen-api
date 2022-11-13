@@ -1,5 +1,5 @@
 password_config:
-  default_length: 16
+  default_length: 8
   max_length: 200 # the max length for the password
   default_params:
     numbers_flag: true
