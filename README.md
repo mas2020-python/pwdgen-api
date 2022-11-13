@@ -116,6 +116,12 @@ curl -X POST -s 'http://localhost:8080/passwords?numbers=0&special=0&uppercase=0
 - you can also refer to the Docker Hub and run the application directly as:
 
 ```shell
+docker run --rm -it --name pwdgen-api --publish 8080:8080 mas2020/pwdgen-api:latest
+```
 
+If you have `make` installed you can type:
+
+```shell
+make run
 ```
 
