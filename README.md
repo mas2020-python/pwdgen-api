@@ -1,6 +1,6 @@
-# Swisscom Tech Assessment
+# Python Fast API Password generation
 
-The assesment is a FastAPI Web application able to generate a random password. The format of the generated password
+The repo contains a FastAPI Web application able to generate a random password. The format of the generated password
 can be decided by the user passing to the web method specific argument (query params).
 
 ## Application requirements
