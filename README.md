@@ -48,13 +48,32 @@ The application will use the following Python libraries:
 - `fastapi`: for the deployment of the Web API service
 - the application has a Makefile in order to execute test, start the application etc...
 - the unit test are executed only for the engine, not for the wep app. This choice is necessary considering the timing constraints.
+- the error thrown by the API Server is compliant with the Google JSON standard guide and has the following format:
 
+```json
+{
+  "apiVersion": "2.0",
+  "error": {
+    "code": 404,
+    "message": "File Not Found",
+    "errors": [{
+      "domain": "Calendar",
+      "reason": "ResourceNotFoundException",
+      "message": "File Not Found
+    }]
+  }
+}
+```
+
+for the sake of the example the errors list is omitted.
+
+- the default values for the API query params are taken from the configs/app.yml file (in case they are not passed to the API)
 
 Locally the libraries will be installed into a virtual environment and each dependencies will be listed
 in a `requirements.txt` file.
 To reproduce locally you have to follow these steps:
 ```shell
-python3 -m venv .venv --prompt='swisscom-asses'
+python3 -m venv .venv --prompt='swisscom-pwdgen'
 source .venv/bin/activate
 pip3 install -r requirements.txt
 ```
@@ -71,9 +90,32 @@ The service has the following folder structure:
 The `app.yml` file is the config file for the application and contains all the default rule for the password generation. In case no params
 are given the server will use the default ones.
 
+### Run the application
 
+There are several ways to run this application:
 
+- you can download the code from github and run the application locally (Python > 3.10 is requested):
 
+```shell
+git clone ...
+cd ...
+python3 -m venv .venv --prompt='swisscom-pwdgen'
+source .venv/bin/activate
+pip3 install -r requirements.txt
+make run_local
+curl -X POST -s 'http://localhost:8080/passwords?numbers=0&special=0&uppercase=0&lowercase=0&length=10'
+```
 
+- after the git clone, you can also run the application using Docker (Docker has to be previously installed):
 
+```shell
+docker-compose -f docker-compose.dev.yml up --build
+curl -X POST -s 'http://localhost:8080/passwords?numbers=0&special=0&uppercase=0&lowercase=0&length=10'
+```
+
+- you can also refer to the Docker Hub and run the application directly as:
+
+```shell
+
+```
 
