@@ -115,10 +115,9 @@ class PwdGenerator():
                 f'the given length ({length}) exceeds the max length of {config.app_config["password_config"]["max_length"]}')
         if elems == 0:
             raise Exception(
-                f'all the arguments passed to the API are False, it is not possible to generate a pwd. Set at least one parameter to True.')
-        if length < 0:
-            raise Exception(
-                f'the password length cannot be a negative number')
+                'all the arguments passed to the API are False, it is not possible to generate a pwd. Set at least one parameter to True.')
+        if length <= 0:
+            raise Exception('the password length must be greater than 0')
         return elems, 100
 
     def __generate_flag(self, number: int, chars: list):
