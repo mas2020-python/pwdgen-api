@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+ web:
+  build:
+   context: .
+  ports:
+  - 8080:8080
+  volumes:
+  # this mapping enables to change the config read by the running container
+  - ./configs:/app/src/configs

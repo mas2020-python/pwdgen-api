@@ -1,0 +1,11 @@
+password_config:
+  default_length: 8
+  max_length: 200 # the max length for the password
+  default_params:
+    numbers_flag: true
+    lowercase_flag: true
+    uppercase_flag: false
+    special_flag: true
+
+log:
+  verbosity: 0
