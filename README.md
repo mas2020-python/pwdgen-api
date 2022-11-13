@@ -15,16 +15,18 @@ The service should follow these requirements:
 
 Default password length and default flags should be configurable from the server.
 
-### Functional Considerations***
+### Functional Considerations
+
 - requirements speak about 'should consider' something during the pwd generation. It means that a bunch of chars of that specific flag have to present at least one time.
-- based on the flags numbers present the application will put into the password the corresponding bunch of chars using this algo: len/numbers of flags determines how many chars of a specific set has to be considered. For example:
+- based on the flags numbers present the application will generate the password with the corresponding bunch of chars using this algo: len/numbers of flags determines how many chars of a specific set has to be considered. For example:
 ```shell
 numbers_flag = true
 lowercase_chars = true
 pwd length = 10
 10 / 2 = 5
 ```
-the application will create a pwd with 5 numbers and 5 lower chars. If a generated pwd is still < to the length the adding chars will be lower cases chars.
+the application will create a pwd with 5 numbers and 5 lower chars. If a generated pwd is still < to the length, the application will add other chars
+from the valid sets.
 
 #### Edge cases
 
@@ -37,18 +39,15 @@ only special chars = true
 the given pwd will 100 special chars
 ```
 - length is < 0 or > 200: error is given
-- flags are all false: error is given
-
-
-
-
+- all flags are false: error is given
 
 ### Technical considerations
 
 The application will use the following Python libraries:
 - `pytest`: in order to make the unit test
 - `fastapi`: for the deployment of the Web API service
-- 
+- the application has a Makefile in order to execute test, start the application etc...
+- the unit test are executed only for the engine, not for the wep app. This choice is necessary considering the timing constraints.
 
 
 Locally the libraries will be installed into a virtual environment and each dependencies will be listed
@@ -69,6 +68,8 @@ The service has the following folder structure:
 
 - `src`: it is the folder that contains the application code
 - `configs`: it is the folder that contains the configuration files. The config module will expose these values for the entire project.
+The `app.yml` file is the config file for the application and contains all the default rule for the password generation. In case no params
+are given the server will use the default ones.
 
 
 

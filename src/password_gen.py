@@ -29,7 +29,7 @@ class PwdGenerator():
         pass
 
     def generate(self, length=length, numbers_flag=numbers_flag, lowercase_flag=lowercase_flag,
-                 uppercase_flag=uppercase_flag, special_flag=special_flag):
+                 uppercase_flag=uppercase_flag, special_flag=special_flag) -> str:
         """
         Generate the pwd and returns it to the caller.
 
@@ -45,7 +45,7 @@ class PwdGenerator():
           If consider uppercase chars in the pwd generation
         special_flag : bool,  default config file configuration
           If consider special chars in the pwd generation
-          
+
         Returns
         -------
         pwd : str
@@ -68,30 +68,32 @@ class PwdGenerator():
 
         # it always generates a pwd with some characters (fdaieoifhawero)
         while remaining > 0:
-          if lowercase_flag:
-              lowercases_chars += self.__generate_flag(
-                  chars_length if chars_length < remaining else remaining, string.ascii_lowercase)
-              remaining -= chars_length
-              print(f'the lowercases_chars is {lowercases_chars}')
-          if numbers_flag:
-              numbers += self.__generate_flag(chars_length if chars_length < remaining else remaining, "01233456789")
-              remaining -= chars_length
-              print(f'the numbers are {numbers}')
-          if uppercase_flag:
-              uppercases_chars += self.__generate_flag(chars_length if chars_length < remaining else remaining,
-              string.ascii_uppercase)
-              remaining -= chars_length
-              print(f'the uppercase_flag are {uppercases_chars}')
-          if special_flag:
-              special_chars += self.__generate_flag(chars_length if chars_length < remaining else remaining,
-              "!""#$%&'()*+,-./:;<=>?@[\]^_`{|}~")
-              remaining -= chars_length
-              print(f'the special_chars are {special_chars}')
+            if lowercase_flag:
+                lowercases_chars += self.__generate_flag(
+                    chars_length if chars_length < remaining else remaining, string.ascii_lowercase)
+                remaining -= chars_length
+                print(f'the lowercases_chars is {lowercases_chars}')
+            if numbers_flag:
+                numbers += self.__generate_flag(
+                    chars_length if chars_length < remaining else remaining, "01233456789")
+                remaining -= chars_length
+                print(f'the numbers are {numbers}')
+            if uppercase_flag:
+                uppercases_chars += self.__generate_flag(chars_length if chars_length < remaining else remaining,
+                                                         string.ascii_uppercase)
+                remaining -= chars_length
+                print(f'the uppercase_flag are {uppercases_chars}')
+            if special_flag:
+                special_chars += self.__generate_flag(chars_length if chars_length < remaining else remaining,
+                                                      "!#$%&'()*+,-./:;<=>?@[\\]^_`{|}~")
+                remaining -= chars_length
+                print(f'the special_chars are {special_chars}')
 
         # shuffle the final string
-        password = self.__shuffle(length, lowercases_chars+numbers+uppercases_chars+special_chars)
-        print(f'the final pws is {password}, length: {len(password)}')
-        pass
+        password = self.__shuffle(
+            length, lowercases_chars+numbers+uppercases_chars+special_chars)
+        print(f'the final pws is >> {password} <<, length: {len(password)}')
+        return password
 
     def __checks(self, length, numbers_flag, lowercase_flag,
                  uppercase_flag, special_flag):
@@ -142,13 +144,12 @@ class PwdGenerator():
         return ''.join(chars_back)
 
     def __shuffle(self, length: int, pwd: string):
-      """
-      Shuffle a password completing the length in case is needed.
-      """
-      final_pwd = ''.join(random.sample(pwd, len(pwd)))
-      if length > len(final_pwd):
-        lowercases = self.__generate_flag(
+        """
+        Shuffle a password completing the length in case is needed.
+        """
+        final_pwd = ''.join(random.sample(pwd, len(pwd)))
+        if length > len(final_pwd):
+            lowercases = self.__generate_flag(
                 length - len(final_pwd), string.ascii_lowercase)
-        final_pwd += lowercases
-      return final_pwd
-
+            final_pwd += lowercases
+        return final_pwd
