@@ -97,6 +97,8 @@ The application has been developed using Python 3.11.0, a version lower than 3.1
 - the application prints some debug information onto the standard output. Can be improved having a log where the verbosity can be set using a specific
 ENV variable.
 
+- the documentation for invoking the API can be directly consulted from [here](http://localhost:8080/docs)
+
 ### Folder structure
 
 The service has the following folder structure:
