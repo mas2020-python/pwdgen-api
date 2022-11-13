@@ -1,15 +1,14 @@
 """
 Main module for the Web API Server application.
 """
-from fastapi import FastAPI, Request, Query
+from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
 from errors import RequestException
 from password_gen import PwdGenerator
 from utils import config
 
 app = FastAPI()
-
-# errors definitions
 
 
 @app.exception_handler(RequestException)
@@ -26,19 +25,17 @@ async def request_exception_handler(request: Request, exc: RequestException):
     )
 
 
-@app.get("/")
-async def root():
-    """
-    Example function
-    """
-    return {"message": "Hello from FastAPI!"}
-
-
-@app.get("/unicorns/{name}")
-async def read_unicorn(name: str):
-    if name == "yolo":
-        raise RequestException(message=name)
-    return {"unicorn_name": name}
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request, exc):
+    return JSONResponse(
+        status_code=400,
+        content={
+            "apiVersion": "v1.0.0",
+            "error": {
+                "code": 400,
+                "message": str(exc),
+            }
+        })
 
 
 @app.post("/passwords")
@@ -69,11 +66,3 @@ async def gen_password(length: int | None = None, numbers: bool | None = None,
     except Exception as ex:
         raise RequestException(ex.__str__())
     return {"message": pwd}
-
-
-@app.get("/items/")
-async def read_items(q: str | None = None):
-    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
-    if q:
-        results.update({"q": q})
-    return results
