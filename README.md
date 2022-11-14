@@ -142,3 +142,9 @@ curl -X POST -s 'http://localhost:8080/passwords?numbers=0&special=0&uppercase=0
 ```shell
 docker run --rm -it --name pwdgen-api --publish 8080:8080 mas2020/pwdgen-api:latest
 ```
+
+### Application flow
+
+Follows a schema that represents the flow for the pwd generation:
+
+<img src="docs/pwdgen-api.jpg" alt="pwdgen" style="height: 50%; width:50%;"/>
