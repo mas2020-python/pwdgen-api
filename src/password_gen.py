@@ -17,15 +17,10 @@ class PwdGenerator():
     uppercase_flag = config.app_config["password_config"]["default_params"]["uppercase_flag"]
     special_flag = config.app_config["password_config"]["default_params"]["special_flag"]
 
-    def __init__(self, file="configs/app.yml"):
+    def __init__(self):
         """
         Constructor of the class.
-
-        Raises
-        ------
-        ...
         """
-        self.password = ""
         pass
 
     def generate(self, length=length, numbers_flag=numbers_flag, lowercase_flag=lowercase_flag,
@@ -57,44 +52,48 @@ class PwdGenerator():
           The message reports what is the reason of the failure
         ...
         """
-        print(f"the lenght={length}, numbers_flag={numbers_flag}, lowercase_flag={lowercase_flag}, uppercase_char{uppercase_flag}, special_flag={special_flag}")
+        print(f"DEBUG: lenght={length}, numbers_flag={numbers_flag}, lowercase_flag={lowercase_flag}, uppercase_char={uppercase_flag}, special_flag={special_flag}")
         lowercases_chars, numbers, uppercases_chars, special_chars = "", "", "", ""
-        # controls the pwd semantically (raise an exception in case of any error)
+
+        # controls the flags first (raise an exception in case of any error)
         elems = self.__checks(length, numbers_flag, lowercase_flag,
                                   uppercase_flag, special_flag)
-        # numbers of chars that compose each set of chars
+
+        # calculate the numbers of chars that compose each set of chars
         chars_length = length // elems
+        # remaining is the number of chars still to be created until the pwd length is reached
         remaining = length
+        # in case length is < than the flags number, it assumes 1 char for each valid set until the pwd length is reached
         if chars_length == 0:
           chars_length = 1
 
-        # it always generates a pwd with some characters (fdaieoifhawero)
+        # password generation
         while remaining > 0:
             if lowercase_flag:
                 lowercases_chars += self.__generate_flag(
                     chars_length if chars_length < remaining else remaining, string.ascii_lowercase)
                 remaining -= chars_length
-                print(f'the lowercases_chars is {lowercases_chars}')
+                print(f'DEBUG: the lowercases_chars are: {lowercases_chars}')
             if numbers_flag:
                 numbers += self.__generate_flag(
                     chars_length if chars_length < remaining else remaining, "01233456789")
                 remaining -= chars_length
-                print(f'the numbers are {numbers}')
+                print(f'DEBUG: the numbers are: {numbers}')
             if uppercase_flag:
                 uppercases_chars += self.__generate_flag(chars_length if chars_length < remaining else remaining,
                                                          string.ascii_uppercase)
                 remaining -= chars_length
-                print(f'the uppercase_flag are {uppercases_chars}')
+                print(f'DEBUG: the uppercase_flag are: {uppercases_chars}')
             if special_flag:
                 special_chars += self.__generate_flag(chars_length if chars_length < remaining else remaining,
                                                       "!#$%&'()*+,-./:;<=>?@[\\]^_`{|}~")
                 remaining -= chars_length
-                print(f'the special_chars are {special_chars}')
+                print(f'DEBUG: the special_chars are: {special_chars}')
 
         # shuffle the final string
         password = self.__shuffle(
             length, lowercases_chars+numbers+uppercases_chars+special_chars)
-        print(f'the final pws is >> {password} <<, length: {len(password)}')
+        print(f'DEBUG: the final pws is >> {password} <<, length: {len(password)}')
         return password
 
     def __checks(self, length, numbers_flag, lowercase_flag,
