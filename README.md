@@ -78,7 +78,7 @@ The application will use the following Python libraries:
 }
 ```
 
-for the sake of the example the errors list is omitted.
+for the sake of the example the JSON errors list is omitted.
 
 - the default values for the API query params are taken from the configs/app.yml file (in case they are not passed to the API)
 
@@ -90,14 +90,13 @@ source .venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-The application has been developed using Python 3.11.0, a version lower than 3.10 will throw an error in the FastAPI query paramsvalidation. The application has not be tested in a multiple env (using `tox` for example) for a matter of timing.
+The application has been developed using Python 3.11.0, a version lower than 3.10 will throw an error in the FastAPI query params validation. The application has not be tested in a multiple env (using `tox` for example) for a matter of timing.
 
-- the application resources are not divided by the main module. A better organisation would be needed is the application sice is going to increase.
+- the application resources are not separated by the main module. A better organisation would be needed if the application is going to increase.
 
-- the application prints some debug information onto the standard output. Can be improved having a log where the verbosity can be set using a specific
-ENV variable.
+- the application prints some debug information onto the standard output. Can be improved having a log where the verbosity can be set using a specific ENV variable.
 
-- the documentation for invoking the API can be directly consulted from [here](http://localhost:8080/docs)
+- the documentation for calling the API can be directly consulted from [here](http://localhost:8080/docs)
 
 ### Folder structure
 
@@ -117,7 +116,7 @@ There are several ways to run this application:
 ```shell
 git clone ...
 cd ...
-python3 -m venv .venv --prompt='swisscom-pwdgen'
+python3 -m venv .venv --prompt='pwdgen-api-env'
 source .venv/bin/activate
 pip3 install -r requirements.txt
 make run_local
